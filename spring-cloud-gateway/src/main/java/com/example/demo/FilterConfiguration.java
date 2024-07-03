@@ -49,10 +49,9 @@ public class FilterConfiguration {
              * with lists, we can map the wildcard(?) to an Object here, which allows
              * the mapping function below to work properly.
              */
-            var filter = (RewriteAndModifyResponseFilter<Object, Object>)service;
+            var filter = (RewriteAndModifyResponseFilter<Object, Object>) service;
             routes = routes.route(service.getId(), r ->
-                    r.order(Ordered.LOWEST_PRECEDENCE)
-                            .host(service.getSourceHost())
+                    r.host(service.getSourceHost())
                             .and()
                             .path(service.getSourceFilterPath())
                             .filters((f) ->
