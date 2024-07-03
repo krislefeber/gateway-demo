@@ -17,35 +17,39 @@ public class DemoApplication {
         SpringApplication.run(DemoApplication.class, args);
     }
 
-    @Bean
-    public RouteLocator routeV1MoviesToV2Titles(RouteLocatorBuilder builder) {
-
-        return builder.routes()
-                .route("routeV1MoviesToV2Titles", r -> r
-                        .path("/api/v1/movies")
-                        .filters((f) ->
-                                f.rewritePath("/api/v1/movies", "/api/v2/titles")
-                                        .modifyResponseBody(
-                                                Title.class,
-                                                Movie.class,
-                                                (exc, v2) -> Mono.justOrEmpty(
-                                                        Movie.builder()
-                                                                .name(v2.getTitle())
-                                                                .build()
-                                                )
-                                        )
-                        ).uri("http://service-2:8080"))
-                .build();
-    }
 
 
-    @Bean
-    public RouteLocator routeV1Service(RouteLocatorBuilder builder) {
-        return builder.routes()
-                .route("routeV1Service", r -> r
-                        .order(Ordered.LOWEST_PRECEDENCE)
-                        .path("/api/v1/**")
-                        .uri("http://service-1:8080"))
-                .build();
-    }
+//    @Bean
+//    public RouteLocator routeV1MoviesToV2Titles(RouteLocatorBuilder builder) {
+//
+//        return builder.routes()
+//                .route("routeV1MoviesToV2Titles", r -> r
+//                        .path("/api/v1/movies")
+//                        .and()
+//                        .host()
+//                        .filters((f) ->
+//                                f.rewritePath("/api/v1/movies", "/api/v2/titles")
+//                                        .modifyResponseBody(
+//                                                Title.class,
+//                                                Movie.class,
+//                                                (exc, v2) -> Mono.justOrEmpty(
+//                                                        Movie.builder()
+//                                                                .name(v2.getTitle())
+//                                                                .build()
+//                                                )
+//                                        )
+//                        ).uri("http://service-2:8080"))
+//                .build();
+//    }
+
+//
+//    @Bean
+//    public RouteLocator routeV1Service(RouteLocatorBuilder builder) {
+//        return builder.routes()
+//                .route("routeV1Service", r -> r
+//                        .order(Ordered.LOWEST_PRECEDENCE)
+//                        .path("/api/v1/**")
+//                        .uri("http://service-1:8080"))
+//                .build();
+//    }
 }
