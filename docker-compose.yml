@@ -3,17 +3,29 @@ services:
     image: wiremock/wiremock:latest
     volumes:
       - ./wiremock/service-1:/home/wiremock
-    # ports:
-    #   - 8081:8080
   service-2:
     image: wiremock/wiremock:latest
     volumes:
       - ./wiremock/service-2:/home/wiremock
-    # ports:
-    #   - 8082:8080
   spring-cloud-gateway:
     build:
       context: spring-cloud-gateway
       dockerfile: ./Dockerfile
     ports:
       - 8080:8080
+  kong:
+    image: kong:latest
+    ports:
+      - 8081:8000
+      - 8001:8001
+      - 8002:8002
+    environment:
+      KONG_DATABASE: off
+      KONG_ADMIN_ACCESS_LOG: /dev/stdout
+      KONG_ADMIN_ERROR_LOG: /dev/stderr
+      KONG_PROXY_LISTEN: "${KONG_PROXY_LISTEN:-0.0.0.0:8000}"
+      KONG_ADMIN_LISTEN: "${KONG_ADMIN_LISTEN:-0.0.0.0:8001}"
+      KONG_ADMIN_GUI_LISTEN: "${KONG_ADMIN_GUI_LISTEN:-0.0.0.0:8002}"
+      KONG_DECLARATIVE_CONFIG: "/opt/kong/kong.yaml"
+    volumes:
+      - ./kong/config:/opt/kong

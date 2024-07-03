@@ -1,0 +1,22 @@
+# yaml-language-server: $schema=http://localhost:8001/schemas/routes/
+
+# a very minimal declarative config file
+_format_version: "2.1"
+_transform: true
+
+services:
+  - name: service-1
+    url: http://service-1:8080
+    routes:
+      - name: v1
+        strip_path: false
+        paths:
+          - /api/v1/
+  - name: service-2
+    url: http://service-2:8080
+    routes:
+      - name: v2
+        strip_path: false
+        paths:
+          - /api/v2/
+          - /api/v1/movies
