@@ -1,0 +1,15 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPathPattern": "/api/v1/movies"
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "name": "I'm version 1"
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

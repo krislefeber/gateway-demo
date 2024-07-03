@@ -1,0 +1,19 @@
+services:
+  service-1:
+    image: wiremock/wiremock:latest
+    volumes:
+      - ./wiremock/service-1:/home/wiremock
+    # ports:
+    #   - 8081:8080
+  service-2:
+    image: wiremock/wiremock:latest
+    volumes:
+      - ./wiremock/service-2:/home/wiremock
+    # ports:
+    #   - 8082:8080
+  spring-cloud-gateway:
+    build:
+      context: spring-cloud-gateway
+      dockerfile: ./Dockerfile
+    ports:
+      - 8080:8080
