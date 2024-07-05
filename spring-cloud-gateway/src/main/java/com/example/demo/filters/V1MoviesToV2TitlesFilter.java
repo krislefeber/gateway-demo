@@ -56,4 +56,9 @@ public class V1MoviesToV2TitlesFilter implements  RewriteAndModifyResponseFilter
     public String getTargetUri() {
         return "http://service-2:8080";
     }
+
+    @Override
+    public boolean betaOnly() {
+        return true;
+    }
 }
