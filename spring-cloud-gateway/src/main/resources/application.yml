@@ -1,0 +1,35 @@
+spring:
+  cloud:
+    gateway:
+        httpserver:
+            wiretap: true
+        httpclient:
+            wiretap: true
+
+logging.level.com.example: DEBUG
+
+app:
+  services:
+    # Refer to ServiceFilterConfiguration for more details
+    routes:
+      service-1:
+        route-host: "*"
+        route-filter-path: "/api/v1/**"
+        source-uri: "http://service-1:8080"
+      service-2:
+        route-host: "*"
+        route-filter-path: "/api/v2/**"
+        source-uri: "http://service-2:8080"
+  rewrites:
+    # The keys under paths should match up with the ID of the filter.
+    # Refer to RewriteConfiguration for more details
+    paths:
+      routeV1MoviesToV2Titles:
+        route-host: "*"
+        route-filter-path: "/api/v1/movies"
+        incoming-path-regex: "/api/v1/movies"
+        target-path-regex: "/api/v2/titles"
+        beta-only: true
+        source-uri: "http://service-2:8080"
+        allowed-methods:
+          - GET
