@@ -1,0 +1,15 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPathPattern": "/api/v2/titles"
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "title": "I'm version 2"
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}
