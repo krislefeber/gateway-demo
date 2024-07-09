@@ -1,6 +1,8 @@
 package com.example.demo.filter.service;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,7 +16,12 @@ public class ServiceFilterProperties {
 
     Map<String, RouteProperties> routes = new HashMap<>();
 
-    @Data
+    public String findUriByServiceId(String serviceId) {
+        return routes.get(serviceId).sourceUri;
+    }
+
+    @Value
+    @Builder
     public static class RouteProperties {
 
         /**

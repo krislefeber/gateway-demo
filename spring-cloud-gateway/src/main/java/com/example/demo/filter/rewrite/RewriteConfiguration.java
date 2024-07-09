@@ -1,5 +1,6 @@
 package com.example.demo.filter.rewrite;
 
+import com.example.demo.filter.service.ServiceFilterProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.route.RouteLocator;
@@ -21,7 +22,7 @@ public class RewriteConfiguration {
     private final List<ModifyRequestRouteFilter<?,?>> modifyRequestRouteFilters;
     private final List<ModifyResponseRouteFilter<?,?>> modifyResponseRouteFilters;
     private final RewriteProperties rewriteProperties;
-
+    private final ServiceFilterProperties serviceFilterProperties;
     public static final String BETA_ONLY_HEADER = "X-gateway-beta";
 
 
@@ -94,7 +95,7 @@ public class RewriteConfiguration {
                             }
                             return updatedFilter;
                         })
-                        .uri(filter.getSourceUri());
+                        .uri(serviceFilterProperties.findUriByServiceId(filter.getSourceServiceId()));
             });
 
         }

@@ -2,6 +2,7 @@ package com.example.demo.filter.rewrite;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,7 +14,7 @@ import java.util.*;
 public class RewriteProperties {
     Map<String, RewritePath> paths = new HashMap<>();
 
-    @Data
+    @Value
     @Builder
     public static class RewritePath {
         /**
@@ -31,10 +32,10 @@ public class RewriteProperties {
         String routeFilterPath;
 
         /**
-         * The host to direct the call to.
-         * example: http://service-1:8080
+         * The id of the service to direct the call to.
+         * example: service-2
          */
-        String sourceUri;
+        String sourceServiceId;
         String incomingPathRegex;
         String targetPathRegex;
 
